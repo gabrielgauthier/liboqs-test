@@ -1,26 +1,30 @@
 # THESE SHOULD BE THE ONLY OPTIONS TO BE CONFIGURED BY THE PERSON COMPILING
 
-KEMS_TO_ENABLE?=frodokem_640_aes frodokem_640_cshake frodokem_976_aes frodokem_976_cshake \
-			   newhope_512_cca_kem newhope_1024_cca_kem \
-			   kyber512 kyber768 kyber1024 \
-			   bike1_l1 bike1_l3 bike1_l5 \
-			   bike2_l1 bike2_l3 bike2_l5 \
-			   bike3_l1 bike3_l3 bike3_l5 \
-			   sike_p503, sike_p751 \
-			   BIG_QUAKE_1 BIG_QUAKE_3 BIG_QUAKE_5 \
-			   ledakem_C1_N02 ledakem_C1_N03 ledakem_C1_N04 \
-			   ledakem_C3_N02 ledakem_C3_N03 ledakem_C3_N04 \
-			   ledakem_C5_N02 ledakem_C5_N03 ledakem_C5_N04 \
-			   saber_light_saber_kem saber_saber_kem saber_fire_saber_kem \
-			   lima_2p_1024_cca_kem lima_2p_2048_cca_kem lima_sp_1018_cca_kem lima_sp_1306_cca_kem lima_sp_1822_cca_kem lima_sp_2062_cca_kem \
-			   titanium_cca_std_kem titanium_cca_hi_kem titanium_cca_med_kem titanium_cca_super_kem
-			   # EDIT-WHEN-ADDING-KEM
+#KEMS_TO_ENABLE?=BIG_QUAKE_1 bike1_l1 kyber512 frodokem_640_aes ledakem_C1_N02 lima_sp_1018_cca_kem newhope_512_cca_kem saber_light_saber_kem sike_p503 titanium_cca_std_kem 
+KEMS_TO_ENABLE?=BIG_QUAKE_1 bike1_l1 kyber512 lima_sp_1018_cca_kem newhope_512_cca_kem
 
-KEM_DEFAULT?=newhope_1024_cca_kem
+#KEMS_TO_ENABLE?=frodokem_640_aes frodokem_640_cshake frodokem_976_aes frodokem_976_cshake \
+#			   newhope_512_cca_kem newhope_1024_cca_kem \
+#			   kyber512 kyber768 kyber1024 \
+#			   bike1_l1 bike1_l3 bike1_l5 \
+#			   bike2_l1 bike2_l3 bike2_l5 \
+#			   bike3_l1 bike3_l3 bike3_l5 \
+#			   sike_p503, sike_p751 \
+#			   BIG_QUAKE_1 BIG_QUAKE_3 BIG_QUAKE_5 \
+#			   ledakem_C1_N02 ledakem_C1_N03 ledakem_C1_N04 \
+#			   ledakem_C3_N02 ledakem_C3_N03 ledakem_C3_N04 \
+#			   ledakem_C5_N02 ledakem_C5_N03 ledakem_C5_N04 \
+#			   saber_light_saber_kem saber_saber_kem saber_fire_saber_kem \
+#			   lima_2p_1024_cca_kem lima_2p_2048_cca_kem lima_sp_1018_cca_kem lima_sp_1306_cca_kem lima_sp_1822_cca_kem lima_sp_2062_cca_kem \
+#			   titanium_cca_std_kem titanium_cca_hi_kem titanium_cca_med_kem titanium_cca_super_kem
+#			   # EDIT-WHEN-ADDING-KEM
 
-SIGS_TO_ENABLE?=qTESLA_I qTESLA_III_size qTESLA_III_speed qTESLA_p_I qTESLA_p_III \
-                picnic_L1_FS picnic_L1_UR picnic_L3_FS picnic_L3_UR picnic_L5_FS picnic_L5_UR \
-                Dilithium_II_medium Dilithium_III_recommended Dilithium_IV_very_high # EDIT-WHEN-ADDING-SIG
+KEM_DEFAULT?=newhope_512_cca_kem
+
+SIGS_TO_ENABLE?=qTESLA_I
+#SIGS_TO_ENABLE?=qTESLA_I qTESLA_III_size qTESLA_III_speed qTESLA_p_I qTESLA_p_III \
+#                picnic_L1_FS picnic_L1_UR picnic_L3_FS picnic_L3_UR picnic_L5_FS picnic_L5_UR \
+#                Dilithium_II_medium Dilithium_III_recommended Dilithium_IV_very_high # EDIT-WHEN-ADDING-SIG
 
 SIG_DEFAULT?=qTESLA_I
 
@@ -57,7 +61,7 @@ ENABLE_KEMS= # THIS WILL BE FILLED IN BY INDIVIDUAL KEMS' MAKEFILES IN COMBINATI
 
 ENABLE_SIGS= # THIS WILL BE FILLED IN BY INDIVIDUAL SIGS' MAKEFILES IN COMBINATION WITH THE ARCHITECTURE
 
-CFLAGS+=-O2 -std=c99 -Iinclude -I$(OPENSSL_INCLUDE_DIR) -Wno-unused-function -Werror -Wpedantic -Wall -Wextra
+CFLAGS+=-v -O2 -std=c99 -Iinclude -I$(OPENSSL_INCLUDE_DIR) -Wno-unused-function -Werror -Wpedantic -Wall -Wextra
 ifeq ($(arch), "x64")
   CFLAGS+= -arch x86_64
 endif
@@ -77,7 +81,8 @@ LDFLAGS+=-L$(OPENSSL_LIB_DIR) -lcrypto -lm
 KECCAK_INCLUDE_DIR=vendor/XKCP-master/bin/generic64
 KECCAK_LIB_DIR=vendor/XKCP-master/bin/generic64
 
-all: liboqs tests speeds kats examples
+all: liboqs tests speeds kats
+#examples
 
 OBJECT_DIRS=
 TO_CLEAN=liboqs.a

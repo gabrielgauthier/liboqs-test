@@ -1,0 +1,195 @@
+bash scripts/build-keccak-code-package.sh
+make[1]: Entering directory '/home/gabriel/liboqs/vendor/XKCP-master'
+make -f bin/.build/generic64/libkeccak.a.make generic64/libkeccak.a
+make[2]: Entering directory '/home/gabriel/liboqs/vendor/XKCP-master'
+make[2]: Nothing to be done for 'generic64/libkeccak.a'.
+make[2]: Leaving directory '/home/gabriel/liboqs/vendor/XKCP-master'
+make[1]: Leaving directory '/home/gabriel/liboqs/vendor/XKCP-master'
+rm -f -rf .objs/keccak
+mkdir -p .objs/keccak
+cd .objs/keccak && ar x ../../vendor/XKCP-master/bin/generic64/libkeccak.a
+rm -f -r src/config.h
+touch src/config.h
+echo "/**" >> src/config.h
+echo " * @file config.h" >> src/config.h
+echo " * @brief Pre-processor macros indicating compile-time options." >> src/config.h
+echo " */" >> src/config.h
+echo "/** Preprocessor macro indicating KEM frodokem_640_aes is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_frodokem_640_aes" >> src/config.h;  echo "/** Preprocessor macro indicating KEM newhope_512_cca_kem is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_newhope_512_cca_kem" >> src/config.h;  echo "/** Preprocessor macro indicating KEM kyber512 is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_kyber512" >> src/config.h;  echo "/** Preprocessor macro indicating KEM bike1_l1 is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_bike1_l1" >> src/config.h;  echo "/** Preprocessor macro indicating KEM sike_p503 is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_sike_p503" >> src/config.h;  echo "/** Preprocessor macro indicating KEM BIG_QUAKE_1 is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_BIG_QUAKE_1" >> src/config.h;  echo "/** Preprocessor macro indicating KEM saber_light_saber_kem is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_saber_light_saber_kem" >> src/config.h;  echo "/** Preprocessor macro indicating KEM lima_sp_1018_cca_kem is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_lima_sp_1018_cca_kem" >> src/config.h;  echo "/** Preprocessor macro indicating KEM ledakem_C1_N02 is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_ledakem_C1_N02" >> src/config.h;  echo "/** Preprocessor macro indicating KEM titanium_cca_std_kem is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_KEM_titanium_cca_std_kem" >> src/config.h;
+echo "/** Preprocessor macro indicating SIG qTESLA_I is enabled. */" >> src/config.h; echo "#define OQS_ENABLE_SIG_qTESLA_I" >> src/config.h;
+echo "/** Preprocessor macro setting the default KEM to newhope_512_cca_kem. */" >> src/config.h
+echo "#define OQS_KEM_DEFAULT OQS_KEM_alg_newhope_512_cca_kem" >> src/config.h
+echo "/** Preprocessor macro setting the default SIG to qTESLA_I. */" >> src/config.h
+echo "#define OQS_SIG_DEFAULT OQS_SIG_alg_qTESLA_I" >> src/config.h
+echo "/** Date on which liboqs was compiled. */" >> src/config.h
+echo "#define OQS_COMPILE_DATE \"`date`\"" >> src/config.h
+echo "/** Compiler command used to compile liboqs. */" >> src/config.h
+echo "#define OQS_COMPILE_CC \"cc\"" >> src/config.h
+echo "/** Compiler version used to compile liboqs. */" >> src/config.h
+echo "#define OQS_COMPILE_CC_VERSION \"`cc --version | tr '\n' ' '`\"" >> src/config.h
+echo "/** CFLAGS version used to compile liboqs. */" >> src/config.h
+echo "#define OQS_COMPILE_CFLAGS \"-fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX\"" >> src/config.h
+echo "/** LDFLAGS version used to compile liboqs. */" >> src/config.h
+echo "#define OQS_COMPILE_LDFLAGS \" -L/usr/local/opt/openssl/lib -lcrypto -lm\"" >> src/config.h
+echo "/** List of KEMs enabled at compile time. */" >> src/config.h
+echo "#define OQS_COMPILE_ENABLE_KEMS \" frodokem_640_aes    newhope_512_cca_kem  kyber512   bike1_l1         sike_p503  BIG_QUAKE_1   saber_light_saber_kem     lima_sp_1018_cca_kem    ledakem_C1_N02         titanium_cca_std_kem   \"" >> src/config.h
+echo "/** List of SIGs enabled at compile time. */" >> src/config.h
+echo "#define OQS_COMPILE_ENABLE_SIGS \"       qTESLA_I       \"" >> src/config.h
+echo "/** Which KEM is mapped to the default (OQS_KEM_alg_default). */" >> src/config.h
+echo "#define OQS_COMPILE_KEM_DEFAULT \"newhope_512_cca_kem\"" >> src/config.h
+echo "/** Which SIG is mapped to the default (OQS_SIG_alg_default). */" >> src/config.h
+echo "#define OQS_COMPILE_SIG_DEFAULT \"qTESLA_I\"" >> src/config.h
+echo "/** Platform on which liboqs was compiled. */" >> src/config.h
+echo "#define OQS_COMPILE_UNAME \"`uname -a`\"" >> src/config.h
+mkdir -p  .objs/common .objs/kem .objs/kem/frodokem .objs/kem/newhopenist .objs/kem/crystals-kyber .objs/kem/bike .objs/kem/sike .objs/kem/BIG_QUAKE .objs/kem/saber .objs/kem/lima .objs/kem/ledakem .objs/kem/titanium .objs/sig .objs/sig/picnic .objs/sig/qtesla .objs/sig/crystals-dilithium
+mkdir -p .objs_upstream
+rm -f -r include
+mkdir -p include/oqs
+cp src/oqs.h src/common/rand.h src/common/common.h src/kem/kem.h src/kem/frodokem/kem_frodokem.h src/kem/newhopenist/kem_newhopenist.h src/kem/crystals-kyber/kem_kyber.h src/kem/bike/kem_bike.h src/kem/sike/kem_sike.h src/kem/BIG_QUAKE/kem_BIGQUAKE.h src/kem/saber/kem_saber.h src/kem/lima/kem_lima.h src/kem/ledakem/kem_ledakem.h src/kem/titanium/kem_titanium.h src/sig/sig.h src/sig/picnic/sig_picnic.h src/sig/qtesla/sig_qtesla.h src/sig/crystals-dilithium/sig_dilithium.h src/config.h include/oqs
+cc -c src/common/rand.c -o .objs/common/rand.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/common/rand_nist.c -o .objs/common/rand_nist.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/common/common.c -o .objs/common/common.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/kem.c -o .objs/kem/kem.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/frodokem/kem_frodokem.c -o .objs/kem/frodokem/kem_frodokem.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/newhopenist/kem_newhopenist.c -o .objs/kem/newhopenist/kem_newhopenist.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/crystals-kyber/kem_kyber.c -o .objs/kem/crystals-kyber/kem_kyber.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/bike/kem_bike.c -o .objs/kem/bike/kem_bike.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/sike/kem_sike.c -o .objs/kem/sike/kem_sike.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/BIG_QUAKE/kem_BIGQUAKE.c -o .objs/kem/BIG_QUAKE/kem_BIGQUAKE.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/saber/kem_saber.c -o .objs/kem/saber/kem_saber.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/lima/kem_lima.c -o .objs/kem/lima/kem_lima.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/ledakem/kem_ledakem.c -o .objs/kem/ledakem/kem_ledakem.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/kem/titanium/kem_titanium.c -o .objs/kem/titanium/kem_titanium.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/sig/sig.c -o .objs/sig/sig.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/sig/picnic/sig_picnic.c -o .objs/sig/picnic/sig_picnic.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/sig/qtesla/sig_qtesla.c -o .objs/sig/qtesla/sig_qtesla.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cc -c src/sig/crystals-dilithium/sig_dilithium.c -o .objs/sig/crystals-dilithium/sig_dilithium.o -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX
+cp -pr src/kem/frodokem/upstream .objs_upstream/frodokem_640_aes
+cd .objs_upstream/frodokem_640_aes && make clean && make ARCH=x64 OPT_LEVEL=FAST_GENERIC GENERATION_A=AES128 USE_OPENSSL=FALSE
+make[1]: Entering directory '/home/gabriel/liboqs/.objs_upstream/frodokem_640_aes'
+rm -rf objs *.req frodo640 frodo976
+find . -name .DS_Store -type f -delete
+make[1]: Leaving directory '/home/gabriel/liboqs/.objs_upstream/frodokem_640_aes'
+make[1]: Entering directory '/home/gabriel/liboqs/.objs_upstream/frodokem_640_aes'
+gcc -c  -O3 -fPIC -std=c99 -Wall -Wextra -DNIX -D _AMD64_ -D _FAST_GENERIC_ -D _AES128_FOR_A_ -D NO_OPENSSL src/frodo640.c -o objs/frodo640.o
+gcc -c  -O3 -fPIC -std=c99 -Wall -Wextra -DNIX -D _AMD64_ -D _FAST_GENERIC_ -D _AES128_FOR_A_ -D NO_OPENSSL src/util.c -o objs/util.o
+gcc -c  -O3 -fPIC -std=c99 -Wall -Wextra -DNIX -D _AMD64_ -D _FAST_GENERIC_ -D _AES128_FOR_A_ -D NO_OPENSSL src/aes/aes.c -o objs/aes/aes.o
+gcc -c  -O3 -fPIC -std=c99 -Wall -Wextra -DNIX -D _AMD64_ -D _FAST_GENERIC_ -D _AES128_FOR_A_ -D NO_OPENSSL src/aes/aes_c.c -o objs/aes/aes_c.o
+gcc -c  -O3 -fPIC -std=c99 -Wall -Wextra -DNIX -D _AMD64_ -D _FAST_GENERIC_ -D _AES128_FOR_A_ -D NO_OPENSSL src/sha3/fips202.c -o objs/sha3/fips202.o
+rm -rf frodo640
+mkdir frodo640
+ar rcs frodo640/libfrodo.a objs/frodo640.o objs/util.o objs/aes/aes.o objs/aes/aes_c.o objs/sha3/fips202.o
+ranlib frodo640/libfrodo.a
+gcc -c  -O3 -fPIC -std=c99 -Wall -Wextra -DNIX -D _AMD64_ -D _FAST_GENERIC_ -D _AES128_FOR_A_ -D NO_OPENSSL src/frodo976.c -o objs/frodo976.o
+rm -rf frodo976
+mkdir frodo976
+ar rcs frodo976/libfrodo.a objs/frodo976.o objs/util.o objs/aes/aes.o objs/aes/aes_c.o objs/sha3/fips202.o
+ranlib frodo976/libfrodo.a
+make[1]: Leaving directory '/home/gabriel/liboqs/.objs_upstream/frodokem_640_aes'
+bash scripts/explode_and_collect.sh kem_frodokem_640_aes .objs_upstream/frodokem_640_aes/frodo640/libfrodo.a
+.tmp/kem_frodokem_640_aes/aes.o .tmp/kem_frodokem_640_aes/aes_c.o .tmp/kem_frodokem_640_aes/fips202.o .tmp/kem_frodokem_640_aes/frodo640.o .tmp/kem_frodokem_640_aes/util.o
+bash scripts/symbols_global_rename.sh kem_frodokem_640_aes src/kem/frodokem/symbols_global_rename_640_aes.txt
+bash scripts/symbols_local.sh kem_frodokem_640_aes src/kem/frodokem/symbols_local.txt
+bash scripts/collect_objects.sh kem_newhope_512_cca_kem src/kem/newhopenist/upstream/Optimized_Implementation/crypto_kem/newhope512cca/cpapke.o src/kem/newhopenist/upstream/Optimized_Implementation/crypto_kem/newhope512cca/fips202.o src/kem/newhopenist/upstream/Optimized_Implementation/crypto_kem/newhope512cca/kem.o src/kem/newhopenist/upstream/Optimized_Implementation/crypto_kem/newhope512cca/ntt.o src/kem/newhopenist/upstream/Optimized_Implementation/crypto_kem/newhope512cca/poly.o src/kem/newhopenist/upstream/Optimized_Implementation/crypto_kem/newhope512cca/precomp.o src/kem/newhopenist/upstream/Optimized_Implementation/crypto_kem/newhope512cca/reduce.o src/kem/newhopenist/upstream/Optimized_Implementation/crypto_kem/newhope512cca/verify.o
+bash scripts/symbols_global_rename.sh kem_newhope_512_cca_kem src/kem/newhopenist/symbols_global_rename_512.txt
+bash scripts/symbols_local.sh kem_newhope_512_cca_kem src/kem/newhopenist/symbols_local.txt
+bash scripts/collect_objects.sh kem_kyber512 src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/fips202.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/kem.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/poly.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/precomp.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/cbd.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/indcpa.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/ntt.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/polyvec.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/reduce.o src/kem/crystals-kyber/upstream/Optimized_Implementation/crypto_kem/kyber512/verify.o
+bash scripts/symbols_global_rename.sh kem_kyber512 src/kem/crystals-kyber/symbols_global_rename_512.txt
+bash scripts/symbols_local.sh kem_kyber512 src/kem/crystals-kyber/symbols_local.txt
+rm -f -r .objs_upstream/kem_bike1_l1
+cp -pr src/kem/bike/upstream/reference_implementation .objs_upstream/kem_bike1_l1
+cd .objs_upstream/kem_bike1_l1 && make clean && make VER=1 LEVEL=1 CFLAGS="-fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX" OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include INC_DIR="/home/gabriel/liboqs/include"
+make[1]: Entering directory '/home/gabriel/liboqs/.objs_upstream/kem_bike1_l1'
+rm -rf *.o
+make[1]: Leaving directory '/home/gabriel/liboqs/.objs_upstream/kem_bike1_l1'
+make[1]: Entering directory '/home/gabriel/liboqs/.objs_upstream/kem_bike1_l1'
+cc -c -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX -Wno-missing-braces -Wno-missing-field-initializers -DBIKE_VER=1 -DLEVEL=1 -I"/home/gabriel/liboqs/include" -o  aes_ctr_prf.o aes_ctr_prf.c -I/usr/local/opt/openssl/include
+cc -c -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX -Wno-missing-braces -Wno-missing-field-initializers -DBIKE_VER=1 -DLEVEL=1 -I"/home/gabriel/liboqs/include" -o  kem.o kem.c -I/usr/local/opt/openssl/include
+cc -c -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX -Wno-missing-braces -Wno-missing-field-initializers -DBIKE_VER=1 -DLEVEL=1 -I"/home/gabriel/liboqs/include" -o  utilities.o utilities.c -I/usr/local/opt/openssl/include
+cc -c -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX -Wno-missing-braces -Wno-missing-field-initializers -DBIKE_VER=1 -DLEVEL=1 -I"/home/gabriel/liboqs/include" -o  conversions.o conversions.c -I/usr/local/opt/openssl/include
+cc -c -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX -Wno-missing-braces -Wno-missing-field-initializers -DBIKE_VER=1 -DLEVEL=1 -I"/home/gabriel/liboqs/include" -o  decode.o decode.c -I/usr/local/opt/openssl/include
+cc -c -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX -Wno-missing-braces -Wno-missing-field-initializers -DBIKE_VER=1 -DLEVEL=1 -I"/home/gabriel/liboqs/include" -o  parallel_hash.o parallel_hash.c -I/usr/local/opt/openssl/include
+cc -c -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX -Wno-missing-braces -Wno-missing-field-initializers -DBIKE_VER=1 -DLEVEL=1 -I"/home/gabriel/liboqs/include" -o  sampling.o sampling.c -I/usr/local/opt/openssl/include
+cc -c -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX -Wno-missing-braces -Wno-missing-field-initializers -DBIKE_VER=1 -DLEVEL=1 -I"/home/gabriel/liboqs/include" -o  openssl_utils.o openssl_utils.c -I/usr/local/opt/openssl/include
+make[1]: Leaving directory '/home/gabriel/liboqs/.objs_upstream/kem_bike1_l1'
+bash scripts/collect_objects.sh kem_bike1_l1 .objs_upstream/kem_bike1_l1/*.o
+bash scripts/symbols_global_rename.sh kem_bike1_l1 src/kem/bike/symbols_global_rename_bike1_l1.txt
+bash scripts/symbols_local.sh kem_bike1_l1 src/kem/bike/symbols_local.txt
+rm -f -r .objs_upstream/kem_bike1_l1
+cd src/kem/sike/upstream/Optimized_Implementation/portable/SIKEp503 && make clean && make ARCH=x64
+make[1]: Entering directory '/home/gabriel/liboqs/src/kem/sike/upstream/Optimized_Implementation/portable/SIKEp503'
+rm -rf *.req objs503 objs sike
+make[1]: Leaving directory '/home/gabriel/liboqs/src/kem/sike/upstream/Optimized_Implementation/portable/SIKEp503'
+make[1]: Entering directory '/home/gabriel/liboqs/src/kem/sike/upstream/Optimized_Implementation/portable/SIKEp503'
+gcc -c -fPIC -O3       -D _AMD64_ -D __LINUX__ -D _OPTIMIZED_GENERIC_ P503.c -o objs503/P503.o
+gcc -c -fPIC -O3       -D _AMD64_ -D __LINUX__ -D _OPTIMIZED_GENERIC_ generic/fp_generic.c -o objs503/fp_generic.o
+gcc -c -fPIC -O3       -D _AMD64_ -D __LINUX__ -D _OPTIMIZED_GENERIC_ sha3/fips202.c -o objs/fips202.o
+rm -rf sike
+mkdir sike
+ar rcs sike/libsike.a objs503/P503.o objs503/fp_generic.o objs/fips202.o
+ranlib sike/libsike.a
+make[1]: Leaving directory '/home/gabriel/liboqs/src/kem/sike/upstream/Optimized_Implementation/portable/SIKEp503'
+bash scripts/explode_and_collect.sh kem_sike_p503 src/kem/sike/upstream/Optimized_Implementation/portable/SIKEp503/sike/libsike.a
+.tmp/kem_sike_p503/P503.o .tmp/kem_sike_p503/fips202.o .tmp/kem_sike_p503/fp_generic.o
+bash scripts/symbols_global_rename.sh kem_sike_p503 src/kem/sike/symbols_global_rename_p503.txt
+bash scripts/symbols_local.sh kem_sike_p503 src/kem/sike/symbols_local.txt
+bash scripts/collect_objects.sh kem_BIG_QUAKE_1 src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/decode.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/kem.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/permutation.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/poly.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/rng.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/gf.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/goppa.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/roots.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/PQCgenKAT_kem.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/m2e.o src/kem/BIG_QUAKE/upstream/Reference_Implementation/BIG_QUAKE_1/keccak.o
+bash scripts/symbols_global_rename.sh kem_BIG_QUAKE_1 src/kem/BIG_QUAKE/symbols_global_rename_1.txt
+bash scripts/symbols_local.sh kem_BIG_QUAKE_1 src/kem/BIG_QUAKE/symbols_local.txt
+bash scripts/collect_objects.sh kem_saber_light_saber_kem src/kem/saber/upstream/Optimized_Implementation_KEM/light_saber/pack_unpack.o src/kem/saber/upstream/Optimized_Implementation_KEM/light_saber/poly.o src/kem/saber/upstream/Optimized_Implementation_KEM/light_saber/fips202.o src/kem/saber/upstream/Optimized_Implementation_KEM/light_saber/verify.o src/kem/saber/upstream/Optimized_Implementation_KEM/light_saber/recon.o src/kem/saber/upstream/Optimized_Implementation_KEM/light_saber/cbd.o src/kem/saber/upstream/Optimized_Implementation_KEM/light_saber/SABER_indcpa.o src/kem/saber/upstream/Optimized_Implementation_KEM/light_saber/kem.o
+bash scripts/symbols_global_rename.sh kem_saber_light_saber_kem src/kem/saber/symbols_global_rename_light_saber.txt
+bash scripts/symbols_local.sh kem_saber_light_saber_kem src/kem/saber/symbols_local.txt
+cc -c -fPIC -O3 -std=c99 -o src/kem/lima/upstream/optimized-implementation-master/Lib/fft.o src/kem/lima/upstream/optimized-implementation-master/Lib/fft.c -I/usr/local/opt/openssl/include -Ivendor/XKCP-master/bin/generic64
+cc -c -fPIC -O3 -std=c99 -o src/kem/lima/upstream/optimized-implementation-master/Lib/lima.o src/kem/lima/upstream/optimized-implementation-master/Lib/lima.c -I/usr/local/opt/openssl/include -Ivendor/XKCP-master/bin/generic64
+cc -c -fPIC -O3 -std=c99 -o src/kem/lima/upstream/optimized-implementation-master/Lib/modp.o src/kem/lima/upstream/optimized-implementation-master/Lib/modp.c -I/usr/local/opt/openssl/include -Ivendor/XKCP-master/bin/generic64
+cc -c -fPIC -O3 -std=c99 -o src/kem/lima/upstream/optimized-implementation-master/Lib/xof.o src/kem/lima/upstream/optimized-implementation-master/Lib/xof.c -I/usr/local/opt/openssl/include -Ivendor/XKCP-master/bin/generic64
+cc -c -fPIC -O3 -std=c99 -o src/kem/lima/upstream/optimized-implementation-master/Lib/LimaAPI.o src/kem/lima/upstream/optimized-implementation-master/Lib/LimaAPI.c -I/usr/local/opt/openssl/include -Ivendor/XKCP-master/bin/generic64
+cc -c -fPIC -O3 -std=c99 -DLIMASZ=1018 -o src/kem/lima/upstream/optimized-implementation-master/NIST/EncapCCA/kem_lima_sp_1018_cca.o src/kem/lima/upstream/optimized-implementation-master/NIST/EncapCCA/kem.c -Isrc/kem/lima/upstream/optimized-implementation-master/Lib -Ivendor/XKCP-master/bin/generic64
+bash scripts/collect_objects.sh kem_lima_sp_1018_cca_kem src/kem/lima/upstream/optimized-implementation-master/Lib/fft.o src/kem/lima/upstream/optimized-implementation-master/Lib/lima.o src/kem/lima/upstream/optimized-implementation-master/Lib/modp.o src/kem/lima/upstream/optimized-implementation-master/Lib/xof.o src/kem/lima/upstream/optimized-implementation-master/Lib/LimaAPI.o src/kem/lima/upstream/optimized-implementation-master/NIST/EncapCCA/kem_lima_sp_1018_cca.o
+bash scripts/symbols_global_rename.sh kem_lima_sp_1018_cca_kem src/kem/lima/symbols_global_rename_sp_1018.txt
+bash scripts/symbols_local.sh kem_lima_sp_1018_cca_kem src/kem/lima/symbols_local.txt
+cp -pr src/kem/ledakem/upstream/Reference_Implementation/KEM/ .objs_upstream/ledakem_C1_N02
+cd .objs_upstream/ledakem_C1_N02 && export SL=1 && export N0=2 && make clean && make
+make[1]: Entering directory '/home/gabriel/liboqs/.objs_upstream/ledakem_C1_N02'
+rm -f bin/*.o  bin/libLEDAkem_sl1_N02.a
+make[1]: Leaving directory '/home/gabriel/liboqs/.objs_upstream/ledakem_C1_N02'
+make[1]: Entering directory '/home/gabriel/liboqs/.objs_upstream/ledakem_C1_N02'
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/gf2x_arith.c -o bin/gf2x_arith.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/aes256.c -o bin/aes256.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/bf_decoding.c -o bin/bf_decoding.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/niederreiter_encrypt.c -o bin/niederreiter_encrypt.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/rng.c -o bin/rng.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/H_Q_matrices_generation.c -o bin/H_Q_matrices_generation.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/kem.c -o bin/kem.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/sha3.c -o bin/sha3.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/niederreiter_decrypt.c -o bin/niederreiter_decrypt.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/gf2x_arith_mod_xPplusOne.c -o bin/gf2x_arith_mod_xPplusOne.o 
+gcc  -c -fPIC -DCATEGORY=1 -DN0=2 -DCPU_WORD_BITS=64 -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=native -O3 -I./include  library/niederreiter_keygen.c -o bin/niederreiter_keygen.o 
+ar rcs bin/libLEDAkem_sl1_N02.a bin/gf2x_arith.o bin/aes256.o bin/bf_decoding.o bin/niederreiter_encrypt.o bin/rng.o bin/H_Q_matrices_generation.o bin/kem.o bin/sha3.o bin/niederreiter_decrypt.o bin/gf2x_arith_mod_xPplusOne.o bin/niederreiter_keygen.o 
+make[1]: Leaving directory '/home/gabriel/liboqs/.objs_upstream/ledakem_C1_N02'
+bash scripts/explode_and_collect.sh kem_ledakem_C1_N02  .objs_upstream/ledakem_C1_N02/bin/libLEDAkem_sl1_N02.a
+.tmp/kem_ledakem_C1_N02/H_Q_matrices_generation.o .tmp/kem_ledakem_C1_N02/aes256.o .tmp/kem_ledakem_C1_N02/bf_decoding.o .tmp/kem_ledakem_C1_N02/gf2x_arith.o .tmp/kem_ledakem_C1_N02/gf2x_arith_mod_xPplusOne.o .tmp/kem_ledakem_C1_N02/kem.o .tmp/kem_ledakem_C1_N02/niederreiter_decrypt.o .tmp/kem_ledakem_C1_N02/niederreiter_encrypt.o .tmp/kem_ledakem_C1_N02/niederreiter_keygen.o .tmp/kem_ledakem_C1_N02/rng.o .tmp/kem_ledakem_C1_N02/sha3.o
+bash scripts/symbols_global_rename.sh kem_ledakem_C1_N02 src/kem/ledakem/symbols_global_rename_C1_N02.txt
+bash scripts/symbols_local.sh kem_ledakem_C1_N02 src/kem/ledakem/symbols_local.txt
+cc -O2 -fPIC -Ivendor/XKCP-master/bin/generic64 -c -o src/kem/titanium/upstream/Titanium_CCA_std/encrypt.o src/kem/titanium/upstream/Titanium_CCA_std/encrypt.c
+cc -O2 -fPIC -Ivendor/XKCP-master/bin/generic64 -c -o src/kem/titanium/upstream/Titanium_CCA_std/kem.o src/kem/titanium/upstream/Titanium_CCA_std/kem.c
+cc -O2 -fPIC -Ivendor/XKCP-master/bin/generic64 -c -o src/kem/titanium/upstream/Titanium_CCA_std/ntt.o src/kem/titanium/upstream/Titanium_CCA_std/ntt.c
+cc -O2 -fPIC -Ivendor/XKCP-master/bin/generic64 -c -o src/kem/titanium/upstream/Titanium_CCA_std/pack.o src/kem/titanium/upstream/Titanium_CCA_std/pack.c
+cc -O2 -fPIC -Ivendor/XKCP-master/bin/generic64 -c -o src/kem/titanium/upstream/Titanium_CCA_std/sampler.o src/kem/titanium/upstream/Titanium_CCA_std/sampler.c
+cc -O2 -fPIC -Ivendor/XKCP-master/bin/generic64 -c -o src/kem/titanium/upstream/Titanium_CCA_std/fastrandombytes.o src/kem/titanium/upstream/Titanium_CCA_std/fastrandombytes.c
+bash scripts/collect_objects.sh kem_titanium_cca_std  src/kem/titanium/upstream/Titanium_CCA_std/encrypt.o src/kem/titanium/upstream/Titanium_CCA_std/kem.o src/kem/titanium/upstream/Titanium_CCA_std/ntt.o src/kem/titanium/upstream/Titanium_CCA_std/pack.o src/kem/titanium/upstream/Titanium_CCA_std/sampler.o src/kem/titanium/upstream/Titanium_CCA_std/fastrandombytes.o
+bash scripts/symbols_global_rename.sh kem_titanium_cca_std  src/kem/titanium/symbols_global_rename_std.txt
+bash scripts/symbols_local.sh kem_titanium_cca_std  src/kem/titanium/symbols_local.txt
+bash scripts/collect_objects.sh sig_qTESLA_I src/sig/qtesla/upstream/Reference_implementation/qTesla_I/sign.o src/sig/qtesla/upstream/Reference_implementation/qTesla_I/sample.o src/sig/qtesla/upstream/Reference_implementation/qTesla_I/poly.o src/sig/qtesla/upstream/Reference_implementation/qTesla_I/consts.o src/sig/qtesla/upstream/Reference_implementation/qTesla_I/sha3/fips202.o
+bash scripts/symbols_global_rename.sh sig_qTESLA_I src/sig/qtesla/symbols_global_rename_I.txt
+bash scripts/symbols_local.sh sig_qTESLA_I src/sig/qtesla/symbols_local.txt
+rm -f -f liboqs.a
+ar rcs liboqs.a `find .objs -name '*.a'` `find .objs -name '*.o'`
+gcc -shared -o liboqs.so `find .objs -name '*.a'` `find .objs -name '*.o'` -lcrypto
+cc src/kem/test_kem.c liboqs.a -o test_kem -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX  -L/usr/local/opt/openssl/lib -lcrypto -lm
+cc src/kem/test_kem.c -o test_kem_shared -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX  -L/usr/local/opt/openssl/lib -lcrypto -lm -L. -loqs -lcrypto -lm
+cc src/sig/test_sig.c liboqs.a -o test_sig -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX  -L/usr/local/opt/openssl/lib -lcrypto -lm
+cc src/sig/test_sig.c -o test_sig_shared -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX  -L/usr/local/opt/openssl/lib -lcrypto -lm -L. -loqs -lcrypto -lm
+cc src/kem/speed_kem.c liboqs.a -o speed_kem -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX  -L/usr/local/opt/openssl/lib -lcrypto -lm
+cc src/sig/speed_sig.c liboqs.a -o speed_sig -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX  -L/usr/local/opt/openssl/lib -lcrypto -lm
+cc src/kem/kat_kem.c liboqs.a -o kat_kem -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX  -L/usr/local/opt/openssl/lib -lcrypto -lm
+cc src/sig/kat_sig.c liboqs.a -o kat_sig -fPIC -O2 -std=c99 -Iinclude -I/usr/local/opt/openssl/include -Wno-unused-function -Werror -Wpedantic -Wall -Wextra -DAVX  -L/usr/local/opt/openssl/lib -lcrypto -lm
