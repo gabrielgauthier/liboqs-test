@@ -117,10 +117,12 @@
 #define OQS_KEM_alg_titanium_cca_med_kem "Titanium-CCA-med"
 /** Algorithm identifier for Titanium supet CCA KEM */
 #define OQS_KEM_alg_titanium_cca_super_kem "Titanium-CCA-super"
+/** Algorithm identifier for NTRU HRSS KEM */
+#define OQS_KEM_alg_ntru_hrss "ntru-hrss"
 
 // EDIT-WHEN-ADDING-KEM
 /** Number of algorithm identifiers above. */
-#define OQS_KEM_algs_length 46
+#define OQS_KEM_algs_length 47
 
 /**
  * Returns identifiers for available key encapsulation mechanisms in liboqs.  Used with OQS_KEM_new.
@@ -274,6 +276,7 @@ void OQS_KEM_free(OQS_KEM *kem);
 #include <oqs/kem_saber.h>
 #include <oqs/kem_lima.h>
 #include <oqs/kem_titanium.h>
+#include <oqs/kem_ntru_hrss.h>
 // EDIT-WHEN-ADDING-KEM
 
 #endif // __OQS_KEM_H

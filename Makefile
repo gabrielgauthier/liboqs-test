@@ -1,7 +1,8 @@
 # THESE SHOULD BE THE ONLY OPTIONS TO BE CONFIGURED BY THE PERSON COMPILING
 
 #KEMS_TO_ENABLE?=BIG_QUAKE_1 bike1_l1 kyber512 frodokem_640_aes ledakem_C1_N02 lima_sp_1018_cca_kem newhope_512_cca_kem saber_light_saber_kem sike_p503 titanium_cca_std_kem 
-KEMS_TO_ENABLE?=BIG_QUAKE_1 bike1_l1 kyber512 lima_sp_1018_cca_kem newhope_512_cca_kem
+#KEMS_TO_ENABLE?=BIG_QUAKE_1 bike1_l1 kyber512 lima_sp_1018_cca_kem newhope_512_cca_kem
+KEMS_TO_ENABLE?=newhope_512_cca_kem ntru_hrss
 
 #KEMS_TO_ENABLE?=frodokem_640_aes frodokem_640_cshake frodokem_976_aes frodokem_976_cshake \
 #			   newhope_512_cca_kem newhope_1024_cca_kem \
